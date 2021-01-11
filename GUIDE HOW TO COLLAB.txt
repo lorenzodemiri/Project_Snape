@@ -14,9 +14,17 @@ GUIDE TO COLLABORATE
 
 7) Now push your branch ( git push origing <YOURNAME> )
 
-8) Go to your github page where is the repo and you should see you branch and a button 
+8) When you think that your work should be merged on the main branch 
+
+9) Go to your github page where is the repo and you should see you branch and a button 
    COMPARE AND PULL REQUEST
    
-9) This will take you to the OPEN A PULL REQUEST
+10) This will take you to the OPEN A PULL REQUEST
 
-10) 
+10) On the left side you should be able to see the button REVIEWER
+	(If you are a collaborator you can merge your own pull request, but it makes more sense to have a "Master Merger"
+	 review and accepts the pull request)
+	
+11) Select LORENZO DEMIRI
+
+12) Wait for my review and after that you can click on "MERGE PULL REQUEST"
