@@ -12,7 +12,7 @@ GUIDE TO COLLABORATE
 
 6) Commit your work (git commit -m "Write here what have you done"
 
-7) Now push your branch ( git push origing <YOURNAME> )
+7) Now push your branch ( git push origing <YOURNAME> ) (NB DONT push to MAIN branch)
 
 8) When you think that your work should be merged on the main branch 
 
@@ -28,3 +28,6 @@ GUIDE TO COLLABORATE
 11) Select LORENZO DEMIRI
 
 12) Wait for my review and after that you can click on "MERGE PULL REQUEST"
+
+
+NB: DONT PUSH TO ORIGIN MAIN BUT ALWAYS PUSH ON YOUR BRANCH AND AFTER THAT CREATE A PULL REQUEST 
