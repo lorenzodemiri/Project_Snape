@@ -21,15 +21,15 @@ GUIDE TO COLLABORATE
 
 2) open folder Project_Snape (cd Project_Snape)
 
-3) now you have to create a new branch called by your name ( git checkout -b <YOURNAME> )
+3) now you have to create a new branch called by your name ( git checkout -b "YOURNAME" )
 
 4) Add your work to the project or modify the file that you want
 
-5) Then Stage your work (git add .) for staging all the file at the same time or ( git add <nameoffile>)
+5) Then Stage your work (git add .) for staging all the file at the same time or ( git add "nameoffile")
 
-6) Commit your work (git commit -m "Write here what have you done"
+6) Commit your work (git commit -m "Write here what have you done")
 
-7) Now push your branch ( git push origing <YOURNAME> ) (NB DONT push to MAIN branch)
+7) Now push your branch ( git push origing "YOURNAME" ) (NB DONT push to MAIN branch)
 
 8) When you think that your work should be merged on the main branch 
 
