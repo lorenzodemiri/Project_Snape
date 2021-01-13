@@ -15,7 +15,25 @@ Zakariya     https://github.com/ZakariyaM27/
 
 Lorenzo      https://github.com/lorenzodemiri
 
-GUIDE TO COLLABORATE
+## EVERY DAY SYNC
+
+1) Before starting the work of the day you have to sync with the last version of the MAIN BRANCH
+
+2) git pull origin main
+
+3) git checkout "YOURBRANCHNAME"
+
+4) git fetch
+
+5) git merge main
+
+6) git checkout "YOURBRANCHNAME"
+
+7) git commit -m "Date of today"
+
+8) git push origin "YOURBRANCHNAME"
+
+## GUIDE TO COLLABORATE
 
 1) git clone https://github.com/lorenzodemiri/Project_Snape.git
 
