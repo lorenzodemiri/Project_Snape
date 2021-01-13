@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 #"Link","Title","Author","Rating Count","Review Count","Rating Value","N pag","1st Pub","series","Genres","Awards"
-df = pd.read_csv("./resources/Books.csv")
+df = pd.read_csv("./Project_Snape/resources/Books.csv")
 #dx = pd.read_csv("./books.csv")
 #print(df['Awards'])
 
@@ -104,7 +104,7 @@ def mean_norm(books):
     year = dr.groupby("1st Pub").agg({"minmax_norm_ratings": [lambda x: np.mean(x)]})
     dyear.columns = ["Mean of norm ratings"]
 
-    dyear['publishing year'] = dyear.index
+    dyear['publishing year'] = dyear.index()
 
     pubyear = dyear["publishing year"].tolist()
     meannorm = dyear["Mean of norm ratings"].tolist()
@@ -121,6 +121,12 @@ def mean_norm(books):
     plt.xticks(np.arange(1900, 2010, step=5))
     plt.show()
 
+if __name__ == "__main__":
+    #print(df)
+    mean_norm(df)
+    #f.to_csv('./resources/Books.csv') 
+    
+
 
 #df['minmax_norm_ratings'] = dx['minmax_norm_ratings']
 #df['mean_norm_ratings'] = dx['mean_norm_ratings']
@@ -128,5 +134,3 @@ def mean_norm(books):
 #df = count_awards(df)
 #sequence = ["Title","Author","Rating Count","Review Count","Rating Value","N pag","1st Pub","series","Genres","Awards","minmax_norm_ratings","mean_norm_ratings","Link"]
 #df = df.reindex(columns = sequence)
-print(df)
-df.to_csv('./resources/Books.csv') 
