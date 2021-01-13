@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from IPython.display import display, HTML
 import matplotlib.pyplot as plt
 #"Link","Title","Author","Rating Count","Review Count","Rating Value","N pag","1st Pub","series","Genres","Awards"
 df = pd.read_csv("./Project_Snape/resources/Books.csv")
@@ -34,7 +35,12 @@ def dyear(df):
     dyear = dyear.style.hide_index()
 
 ##LUCA VISUALIZATION
-def  create_plot_pag_rating(df):
+def get_correlation_table(df):
+    correlation_table = df.corr()
+    display(correlation_table)
+    return correlation_table
+
+def  get_plot_pag_rating(df):
     df_sampled = df.sample(n=100)
     # creating scatter plot of pages and number of ratings
     plt.figure(figsize=(10,10))
@@ -45,15 +51,17 @@ def  create_plot_pag_rating(df):
     plt.xlabel('Number of pages')
     plt.ylabel('Number of ratings')
     plt.title('Number of pages and number of ratings')
+    plt.show()
     # exporting plot
-    plt.savefig('pages_ratings.jpg')
+    #plt.savefig('pages_ratings.jpg')
     return
 
-def corr_coe(df):
+def get_correlation_coe(df):
     correlation_coefficient = df['N pag'].corr(df['Rating Count'])
+    print("Correlation coefficient for number of pages and number of rating is: ", correlation_coefficient)
     return correlation_coefficient
 
-def plot_norm_rating_award(df):
+def get_plotscatter_norm_rating_award(df):
     df_dropped = df[['minmax_norm_ratings', 'Awards']]
     df_droppped = df_dropped.dropna(inplace=True)
     plt.figure(figsize=(10,10))
@@ -63,12 +71,25 @@ def plot_norm_rating_award(df):
     plt.xlabel('Ratings (normalized)')
     plt.ylabel('Number of awards')
     plt.title('Ratings and number of awards')
-    plt.savefig('ratings_awards.jpg')
+    #plt.savefig('ratings_awards.jpg')
+    plt.show()
     return
 
-def coe_rating_award(df):
-    correlation_coefficient = df['minmax_norm_ratings'].corr(df['Awards'])
-    return correlation_coefficient
+def get_coe_rating_award(df):
+    cc_npages_nrating = df['minmax_norm_ratings'].corr(df['Awards'])
+    print("Correlation coefficient for ratings and number of awards is: ", cc_npages_nrating)
+    return cc_npages_nrating
+
+def get_plotbar_norm_rating_award(df):
+    df_sampled = df.sample(n=100)
+    plt.figure(figsize=(10, 10))
+    plt.bar(df_sampled['minmax_norm_ratings'], df_sampled['Awards'])
+    plt.xlabel('Ratings (normalized)')
+    plt.ylabel('Number of awards')
+    plt.title('Ratings and number of awards')
+    plt.show()
+
+
 
 ##KINBERLEY VISUALIZATION
 def plot_distr_minmax_norm(df):
@@ -123,7 +144,12 @@ def mean_norm(books):
 
 if __name__ == "__main__":
     #print(df)
-    mean_norm(df)
+    get_correlation_table(df)
+    get_correlation_coe(df)
+    #get_plot_norm_rating_award(df)
+    get_coe_rating_award(df)
+    get_plot_norm_rating_award(df)
+    #get_plot_pag_rating(df)
     #f.to_csv('./resources/Books.csv') 
     
 
