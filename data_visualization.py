@@ -86,26 +86,58 @@ def get_plotbar_norm_rating_award(df):
     plt.title('Ratings and number of awards')
     plt.show()
 
-
-
 ##KINBERLEY VISUALIZATION
-def plot_distr_minmax_norm(df):
-    import seaborn as sns
-    sample_df = df.sample(n = 100)
-    minmax_list = sample_df["minmax_norm_ratings"].tolist()
-    minmax_list.sort()
-    mean_norm = sample_df["mean_norm_ratings"].tolist()
-    mean_norm.sort()
-    
-    sns.distplot(minmax_list, label='MinMax Norm')
+def get_plot_minmax_norm_distr(df):
+    df = df.sample(n = 100)
+    plt.figure(figsize=(15,10))
+    seaborn.distplot(df["minmax_norm_ratings"], label='MinMax Norm', bins=20)
     c=plt.legend()
-    
-    sns.distplot(mean_norm, label='Mean Norm', color='red')
-    c1=plt.legend()
-    
-    sns.distplot(minmax_list, label='MinMax Norm', color='blue')
-    sns.distplot(mean_norm, label='Mean Norm', color='red')
-    c2=plt.legend()
+    plt.title("Min-Max Norm Distribution")
+    plt.savefig('minmax_norm.jpg')
+    plt.show()
+def get_plot_mean_norm_distr(df):
+    df = df.sample(n = 100)
+    plt.figure(figsize=(15,10))
+    seaborn.distplot(df["mean_norm_ratings"], label='Mean Norm', color='red', bins=20)
+    c=plt.legend()
+    plt.title("Mean Norm Distribution")
+    plt.xticks(range(1, 10))
+    plt.savefig('mean_norm.jpg')
+    plt.show()
+def get_plt_minmax_mean_norm_distr(df):
+    df = df.sample(n = 100)
+    plt.figure(figsize=(15,10))
+    seaborn.distplot(df["minmax_norm_ratings"], label='MinMax Norm', color='blue')
+    seaborn.distplot(df["mean_norm_ratings"], label='Mean Norm', color='red')
+    c=plt.legend()
+    plt.title("Comparison of Norm Distributions")
+    plt.show()
+def get_count_series_book(df):
+    df["series"] = df.series.replace({0: "No", 1: "Yes"})  
+    series = df.groupby(['series']).count()
+    series = series.rename(columns = {"Unnamed: 0":"Series Sum"})
+    display(series["Series Sum"])
+    return series["Series Sum"]
+def get_count_awarded_book(df):
+    df['Awards'] = df['Awards'].fillna(0)
+    df['Awards'].values[df['Awards'].values > 0] = 1
+    df["Awards"] = df.Awards.replace({0.0: "No", 1.0: "Yes"})  
+    awards = df.groupby(['Awards']).count()
+    awards = awards.rename(columns = {"Unnamed: 0":"Awards Sum"})
+    display(awards["Awards Sum"])
+    return awards["Awards Sum"]
+def get_proportion_awards_book(df):
+    df_res = get_count_awarded_book(df)
+    print("Proportion of books with one or more awards:")
+    prob_award = df_res['Yes']/ (df_res['Yes'] + df_res['No'])
+    display(prob_award)
+def get_comparation_awarded_series_book(df):
+    df["series"] = df.series.replace({0: "No", 1: "Yes"})  
+    df["Awards"] = df.Awards.replace({0.0: "No", 1.0: "Yes"})  
+    series_award = df.groupby("Awards")["series"].agg([lambda z: np.sum(z=="Yes"), "size"])
+    series_award.columns = ["Also With Series", "With Awards?"]
+    display(series_award)
+    return series_award
 
 #BENCE VISUALIZATION
 def get_plotscatter_meannormbook_realeseyear(df, enable_line = True):
@@ -129,18 +161,15 @@ def get_plotscatter_meannormbook_realeseyear(df, enable_line = True):
     #plt.savefig('nameoftheplot.jpg')
     plt.show()
     return dyear
-
 def get_plotpair_minmax_mean_normrating(df):
     seaborn.pairplot(df, vars=('Rating Value', 'minmax_norm_ratings', 'mean_norm_ratings'), kind='reg')
     plt.show()
-
 def get_plothist_minmax_mean_normrating(df):
     plt.figure(figsize = (15,15))
     plt.hist(df["Rating Value"])
     plt.hist(df["minmax_norm_ratings"])
     plt.hist(df["mean_norm_ratings"])
     plt.show()
-
 def get_fitted_model(df, data_select = "minmax_norm_ratings"):
     y = [0,1,2,3,4,5,6,7,8,9,10]
     dist = distfit(alpha=0.05, smooth=10)
@@ -150,7 +179,6 @@ def get_fitted_model(df, data_select = "minmax_norm_ratings"):
     dist.summary
     dist.plot_summary()
     plt.show()
-
 def get_make_prediction(df, data_select = "mean_norm_ratings"):
     y = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     dist = distfit(alpha=0.05, smooth=10)
@@ -163,7 +191,6 @@ def get_make_prediction(df, data_select = "mean_norm_ratings"):
     np.array([0.02040816, 0.02040816, 0.02040816, 0.        , 0.        ])
     dist.plot()
     plt.show()
-
 def get_plotline_table_awards_books(df):
     data_aw = df.groupby('Awards')['Awards'].count()
     display(data_aw)
@@ -177,7 +204,12 @@ def get_plotline_table_awards_books(df):
     
 
 if __name__ == "__main__":
-    get_plotline_table_awards_books(df)
-
+    #get_plotline_table_awards_books(df)
+    #plot_distr_minmax_norm_distr(df)
+    #get_proportion_book_awards(df)
+    #get_comparation_awarded_series_book(df)
+    #get_count_series_book(df)
+    #get_count_awarded_book(df)
+    #plot_mean_norm_distr(df)
     #get_fitted_model(df, data_select = "mean_norm_ratings")
  
