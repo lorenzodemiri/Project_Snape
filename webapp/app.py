@@ -10,6 +10,9 @@ library = Image.open('library.jpg')
 # loading dataframe
 df = pd.read_csv('Books.csv')
 df = df.drop(columns=['Unnamed: 0'])
+df.rename(columns={'1st Pub':'pub_year', 'N pag': 'N_pag'}, inplace=True)
+df['Awards'].fillna('0', inplace=True)
+df['Awards'] = df['Awards'].astype('int')
 
 # setting sidebar
 st.sidebar.header('Team Snape')
@@ -22,22 +25,21 @@ st.sidebar.markdown("""Team Snape is composed by:\n
                     Zakariya""")
 st.sidebar.markdown("The repository for the project can be found [here](https://github.com/lorenzodemiri/Project_Snape)!")
 
-# setting headers
+# setting header
 st.title("Analysis of the 20th Century best books")
 st.image(library)
-st.header('How did we developed the project')
 
 # presentation of work and data
+st.header('How did we developed the project')
 st.write("""We took [GoodReads](https://www.goodreads.com/list/show/6.Best_Books_of_the_20th_Century) list of the best book of the 20th century as our data source,
             create a program to scrape all the information we needed from there and saved it to a dataframe.""")
-st.write('To see the dataframe, please use the button below.')
-if st.button("Visualize DataFrame"):
-    st.dataframe(df)
+st.write('Here you can see the DataFrame')
+st.dataframe(df)
 st.write("""Straight from the site we got the title, author, rating count, review count, rating value, number of pages, year of the first publication,
         if the book belongs to a series or not, genres, and how many awards the book won""")
 st.write("""Based on those datas, we decided to do a normalization of the rating and of the mean rating, scaling them from 0 to 10 to have a better understanding on how the rating distributes
         among each book""")
-st.write("""The formula we used for that are:""")
+st.write('The formula we used for that are:')
 st.code("""# getting needed variable for the calculations
 max_rating = df['Rating Value'].max()
 min_rating = df['Rating Value'].min()
@@ -53,8 +55,32 @@ round(1 + 9*((df['Rating Value'] - mean_rating)/range_of_ratings) , 3)
 # scaling mean norm ratings from 0 to 10
 mmax = np.max(df['mean_norm_ratings'])
 mmin = np.min(df['mean_norm_ratings'])
-(df['mean_norm_ratings'] - mmin) / (mmax - mmin) *10)""")
+(df['mean_norm_ratings'] - mmin) / (mmax - mmin) *10)""", language='python')
 
 # explorating dataframe
-st.write("""Here you can do some explorative work on the DataFrame by showing only the column you're interested in.""")
+st.header('Exploring the datas')
+st.write("Here you can do some explorative work on the DataFrame by showing only the column you're interested in.")
 columns_to_show = st.multiselect("Select the columns you want to display", df.columns)
+st.dataframe(df[columns_to_show])
+
+st.write("We can furthermore explore the datas. To view some of the filtering options, click the button below.")
+#if st.button('View filtering options'):
+st.write("Filter the datas by minum and maximum rating normalized from 0 to 10")
+min_rating = st.number_input("Minimum Rating", min_value=0)
+max_rating = st.number_input("Maximum Rating", min_value=0, value=10)
+st.write("Or by minimum and maximum year of publication")
+min_year = st.number_input("Minimum Year", min_value=1899)
+max_year = st.number_input("Maximum Year", min_value=1899, value=2000)
+st.write("Or by minimum and maximum number of pages")
+min_pag = st.number_input("Minimum Pages", min_value=0)
+max_pag = st.number_input("Maximum Pages", min_value=0, value=3000)
+st.write("Or by minimum and maximum number of awards received")
+min_award = st.number_input("Minimum Awards", min_value=0)
+max_award = st.number_input("Maximum Awards", min_value=0, value=30)
+st.dataframe(df.query("@min_rating<=minmax_norm_ratings<=@max_rating & @min_year<=pub_year<=@max_year & @min_pag<=N_pag<=@max_pag & @min_award<=Awards<=@max_award"))
+st.write('We can search by author')
+author_input = st.text_input('Author Name', 'Author Name')
+st.dataframe(df.query("@author_input==Author"))
+st.write('Or by title')
+title_input = st.text_input('Title', 'Title')
+st.dataframe(df[(df == title_input).any(axis=1)])
