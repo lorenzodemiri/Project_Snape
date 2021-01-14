@@ -204,6 +204,8 @@ def get_plotline_table_awards_books(df):
     
 
 if __name__ == "__main__":
+    
+    get_comparation_awarded_series_book(df)
     #get_plotline_table_awards_books(df)
     #plot_distr_minmax_norm_distr(df)
     #get_proportion_book_awards(df)
@@ -212,4 +214,4 @@ if __name__ == "__main__":
     #get_count_awarded_book(df)
     #plot_mean_norm_distr(df)
     #get_fitted_model(df, data_select = "mean_norm_ratings")
- 
+
