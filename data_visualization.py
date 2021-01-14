@@ -204,6 +204,7 @@ def get_plotline_table_awards_books(df):
     
 
 if __name__ == "__main__":
+    
     #get_plotline_table_awards_books(df)
     #plot_distr_minmax_norm_distr(df)
     #get_proportion_book_awards(df)
