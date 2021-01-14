@@ -30,15 +30,15 @@ st.title("Analysis of the 20th Century best books")
 st.image(library)
 
 # presentation of work and data
-st.header('How did we developed the project')
+st.header('How did we developed the project :hammer_and_wrench:')
 st.write("""We took [GoodReads](https://www.goodreads.com/list/show/6.Best_Books_of_the_20th_Century) list of the best book of the 20th century as our data source,
-            create a program to scrape all the information we needed from there and saved it to a dataframe.""")
+            created a program to scrape all the information we needed from there and saved it to a dataframe.""")
 st.write('Here you can see the DataFrame')
 st.dataframe(df)
 st.write("""Straight from the site we got the title, author, rating count, review count, rating value, number of pages, year of the first publication,
-        if the book belongs to a series or not, genres, and how many awards the book won""")
+        if the book belongs to a series or not, genres, and how many awards the book won.""")
 st.write("""Based on those datas, we decided to do a normalization of the rating and of the mean rating, scaling them from 0 to 10 to have a better understanding on how the rating distributes
-        among each book""")
+        among each book.""")
 st.write('The formula we used for that are:')
 st.code("""# getting needed variable for the calculations
 max_rating = df['Rating Value'].max()
@@ -58,25 +58,25 @@ mmin = np.min(df['mean_norm_ratings'])
 (df['mean_norm_ratings'] - mmin) / (mmax - mmin) *10)""", language='python')
 
 # explorating dataframe
-st.header('Exploring the datas')
+st.header('Exploring the datas :mag:')
 st.write("Here you can do some explorative work on the DataFrame by showing only the column you're interested in.")
 columns_to_show = st.multiselect("Select the columns you want to display", df.columns)
 st.dataframe(df[columns_to_show])
 
-st.write("We can furthermore explore the datas. To view some of the filtering options, click the button below.")
+st.write("We can furthermore explore the datas. Below there are some filtering option.")
 #if st.button('View filtering options'):
 st.write("Filter the datas by minum and maximum rating normalized from 0 to 10")
-min_rating = st.number_input("Minimum Rating", min_value=0)
-max_rating = st.number_input("Maximum Rating", min_value=0, value=10)
+min_rating = st.number_input("Minimum Rating", min_value=0, max_value=10)
+max_rating = st.number_input("Maximum Rating", min_value=0, max_value=10, value=10)
 st.write("Or by minimum and maximum year of publication")
-min_year = st.number_input("Minimum Year", min_value=1899)
-max_year = st.number_input("Maximum Year", min_value=1899, value=2000)
+min_year = st.number_input("Minimum Year", min_value=1900)
+max_year = st.number_input("Maximum Year", min_value=1900, max_value=2003, value=2003)
 st.write("Or by minimum and maximum number of pages")
-min_pag = st.number_input("Minimum Pages", min_value=0)
-max_pag = st.number_input("Maximum Pages", min_value=0, value=3000)
+min_pag = st.number_input("Minimum Pages", min_value=23)
+max_pag = st.number_input("Maximum Pages", min_value=0, max_value=14777, value=14777)
 st.write("Or by minimum and maximum number of awards received")
 min_award = st.number_input("Minimum Awards", min_value=0)
-max_award = st.number_input("Maximum Awards", min_value=0, value=30)
+max_award = st.number_input("Maximum Awards", min_value=0, max_value=28, value=28)
 st.dataframe(df.query("@min_rating<=minmax_norm_ratings<=@max_rating & @min_year<=pub_year<=@max_year & @min_pag<=N_pag<=@max_pag & @min_award<=Awards<=@max_award"))
 st.write('We can search by author')
 author_input = st.text_input('Author Name', 'Author Name')
@@ -84,3 +84,6 @@ st.dataframe(df.query("@author_input==Author"))
 st.write('Or by title')
 title_input = st.text_input('Title', 'Title')
 st.dataframe(df[(df == title_input).any(axis=1)])
+
+# visualization
+st.header('Visualizing the data :bar_chart:')
