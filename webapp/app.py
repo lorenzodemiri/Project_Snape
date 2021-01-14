@@ -35,8 +35,8 @@ st.image(library)
 st.header('How did we developed the project :hammer_and_wrench:')
 st.write("""We took [GoodReads](https://www.goodreads.com/list/show/6.Best_Books_of_the_20th_Century) list of the best book of the 20th century as our data source,
             created a program to scrape all the information we needed from there and saved it to a dataframe.""")
-st.write('Here you can see the DataFrame')
-st.dataframe(df)
+if st.button('Click here to see the DataFrame'):
+        st.dataframe(df)
 st.write("""Straight from the site we got the title, author, rating count, review count, rating value, number of pages, year of the first publication,
         if the book belongs to a series or not, genres, and how many awards the book won.""")
 st.write("""Based on those datas, we decided to do a normalization of the rating and of the mean rating, scaling them from 0 to 10 to have a better understanding on how the rating distributes
@@ -66,26 +66,25 @@ columns_to_show = st.multiselect("Select the columns you want to display", df.co
 st.dataframe(df[columns_to_show])
 
 st.write("We can furthermore explore the datas. Below there are some filtering option.")
-#if st.button('View filtering options'):
-st.write("Filter the datas by minum and maximum rating normalized from 0 to 10")
-min_rating = st.number_input("Minimum Rating (from 0 to 10)", min_value=0, max_value=10)
-max_rating = st.number_input("Maximum Rating (from 0 to 10)", min_value=0, max_value=10, value=10)
-st.write("Or by minimum and maximum year of publication")
-min_year = st.number_input("Minimum Year (from 1900 to 2003)", min_value=1900)
-max_year = st.number_input("Maximum Year (from 1900 to 2003)", min_value=1900, max_value=2003, value=2003)
-st.write("Or by minimum and maximum number of pages")
-min_pag = st.number_input("Minimum Pages (from 23 to 14777)", min_value=23)
-max_pag = st.number_input("Maximum Pages (from 23 to 14777)", min_value=0, max_value=14777, value=14777)
-st.write("Or by minimum and maximum number of awards received")
-min_award = st.number_input("Minimum Awards (from 0 to 28)", min_value=0)
-max_award = st.number_input("Maximum Awards (from 0 to 28)", min_value=0, max_value=28, value=28)
+with st.beta_expander('Filter the datas by minum and maximum rating normalized from 0 to 10'):
+        min_rating = st.number_input("Minimum Rating (from 0 to 10)", min_value=0, max_value=10)
+        max_rating = st.number_input("Maximum Rating (from 0 to 10)", min_value=0, max_value=10, value=10)
+with st.beta_expander("Or by minimum and maximum year of publication"):
+        min_year = st.number_input("Minimum Year (from 1900 to 2003)", min_value=1900)
+        max_year = st.number_input("Maximum Year (from 1900 to 2003)", min_value=1900, max_value=2003, value=2003)
+with st.beta_expander("Or by minimum and maximum number of pages"):
+        min_pag = st.number_input("Minimum Pages (from 23 to 14777)", min_value=23)
+        max_pag = st.number_input("Maximum Pages (from 23 to 14777)", min_value=0, max_value=14777, value=14777)
+with st.beta_expander("Or by minimum and maximum number of awards received"):
+        min_award = st.number_input("Minimum Awards (from 0 to 28)", min_value=0)
+        max_award = st.number_input("Maximum Awards (from 0 to 28)", min_value=0, max_value=28, value=28)
 st.dataframe(df.query("@min_rating<=minmax_norm_ratings<=@max_rating & @min_year<=pub_year<=@max_year & @min_pag<=N_pag<=@max_pag & @min_award<=Awards<=@max_award"))
 st.write('We can search by author')
 author_input = st.text_input('Author Name', 'Author Name')
-st.dataframe(df.query("@author_input==Author"))
+st.dataframe(df[df['Author'].str.contains(author_input)])
 st.write('Or by title')
 title_input = st.text_input('Title', 'Title')
-st.dataframe(df[(df == title_input).any(axis=1)])
+st.dataframe(df[df['Title'].str.contains(title_input)])
 
 # visualization
 st.header('Visualizing the data :bar_chart:')
