@@ -5,15 +5,13 @@ import requests
 import grequests
 import pandas as pd
 import numpy as np
-import re 
+import re
+import click 
 from bs4 import BeautifulSoup
 import time
-### Starting the timer ###
-start_time = time.time()
 
 link_base_string = "https://www.goodreads.com/list/show/6.Best_Books_of_the_20th_Century?page={}"
 
-#print(links)
 def get_pages_links(string, index):
     links = []
     for index in range(1,index):
@@ -161,11 +159,13 @@ def get_info_book(page_soup, link, index):
         #print(index,"  ",link,"\n__",title,author,ratingCount, reviewCount, ratingValue, numberOfPages,firstPub, series, genreList, awards,"\n\n")
         return Book_dict
 
-def create_csv():
-    links = get_bookslink(11)
+@click.command()
+@click.option('--index', default=1, help='Set how many pages would you like to scrape')
+def create_csv(index):
+    links = get_bookslink(index + 1)
     res_dict = {}
     i = 1
-    page = grequest_page(links, 11)
+    page = grequest_page(links, index + 1)
     df = pd.DataFrame()
     for r, link in zip(page, links): 
         soup = request_soup(r)
@@ -181,7 +181,7 @@ if __name__ == "__main__":
     create_csv()
     print("--- %s seconds ---" % (time.time() - start_time))
 
-
+#"https://www.goodreads.com/list/show/6.Best_Books_of_the_20th_Century?page={}"
 #print(get_info_book(request_soup(request_single_page("https://www.goodreads.com/book/show/13496.A_Game_of_Thrones")),"https://www.goodreads.com/book/show/13496.A_Game_of_Thrones", 1))
 #links = get_bookslink(11)
 
