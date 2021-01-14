@@ -6,11 +6,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # loading imgs
-snape = Image.open("snape.png")
-library = Image.open('library.jpg')
+snape = Image.open("./webapp/snape.png")
+library = Image.open('./webapp/library.jpg')
 
 # loading dataframe
-df = pd.read_csv('Books.csv')
+df = pd.read_csv('./webapp/Books.csv')
 df = df.drop(columns=['Unnamed: 0'])
 df.rename(columns={'1st Pub':'pub_year', 'N pag': 'N_pag'}, inplace=True)
 df['Awards'].fillna('0', inplace=True)
