@@ -8,6 +8,15 @@ import matplotlib.pyplot as plt
 # loading imgs
 snape = Image.open("snape.png")
 library = Image.open('library.jpg')
+best_award_book = Image.open('best_award_books.jpg')
+best_rated_book = Image.open('best_rated_books.jpg')
+pages_rating = Image.open('pages_ratings.jpg')
+norm_rating_dists = Image.open('norm_ratings_dists.jpg')
+best_fit = Image.open('MeanNormRatings_BestFit.jpg')
+book_awards = Image.open('bookawards.jpg')
+ratings_awards = Image.open('ratings_awards.jpg')
+mean_awards_genres = Image.open('MeanAwardsByGenre.jpg')
+total_awards_genres = Image.open('BarChartGenres_Awards.jpg')
 
 # loading dataframe
 df = pd.read_csv('Books.csv')
@@ -99,3 +108,47 @@ with st.beta_expander('Or by title'):
 
 # visualization
 st.header('Visualizing the data :bar_chart:')
+st.write("There are a lot of question we can ask about the best books of the 20th Century. We tried to answer to some of them")
+with st.beta_expander('Which are the best rated books?'):
+        st.image(best_rated_book)
+with st.beta_expander('Which are the books that won more awards?'):
+        st.image(best_award_book)
+with st.beta_expander('Is there any correlation between number of pages and number of ratings?'):
+        st.image(pages_rating)
+        st.write("Observing the scatter plot we can see what it looks like a little negative correlation. The correlation coefficient, however, is -0.04, meaning that this correlation is not statistically significant")
+with st.beta_expander('Is there any difference between the normalized ratings and the mean ratings?'):
+        st.image(norm_rating_dists)
+        st.write("Both the normalized ratings and the mean ratings follow a normal distribution. This mean we have not much book that are rated really good or really bad. It's fair to think if this follow the real value of the book or if people tend to not give extreme ratings")
+with st.beta_expander('Are we sure the normal distribution is the best fit for these datas?'):
+        st.image(best_fit)
+        st.write('We used an algorithm to find the best possible fit, and the results above confirms that the normal distribution is actually the best fit.')
+with st.beta_expander('Does the awards number follow any kiind of distribution?'):
+        st.image(book_awards)
+        st.write('We can see that we have almost an exponential decrease of books going up with the number of awards')
+with st.beta_expander('Is there any correlation between the ratings on goodreads and the awards winned by the book?'):
+        st.image(ratings_awards)
+        st.write("The correlation is not significant, with a correlation coefficient of 0.03. Ratings are given by the internet people, while awards are usually given by professional. Having no correlation between those two things show that really often the value peoples give to a book is different than the professional judgement. Population of raters from internet people is much higher than the professionals giving awards, therefore it is more of a democratic and real outlook on how good the book is.")
+with st.beta_expander('What is the probability that a book that is part of a series has won an award?'):
+        st.write('We can answer this question by using the Bayes Theorem.')
+        st.code("""p(award|series) = [p(series|award)*p(award)] / p(series)  --> Bayes Theorem
+
+        prob_series_award = 214/500
+
+        prob_award = 550 / (550+446)
+
+        prob_series = 351 / (351+645)
+
+        prob_award_series = (prob_series_award * prob_award) / prob_series
+        
+        p(series|award) =  0.428
+        p(award) =  0.5522088353413654
+        p(series) =  0.35240963855421686
+
+        Therefore,
+        p(award|series) =  0.6706552706552706)""")
+        st.write("The probability that a book that is part of a series has won an award is 67%, so it is really likely if a book has a series, it will also get an award")
+with st.beta_expander("How likely is a book to win an award based on his genre?"):
+        st.image(mean_awards_genres)
+        st.write("Science Fiction is the genre with most awards.")
+with st.beta_expander("How many awards did every genre won during the 20th century?"):
+        st.image(total_awards_genres)
