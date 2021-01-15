@@ -4,12 +4,15 @@ import grequests
 import pandas as pd
 import numpy as np
 import re 
+import click 
 from bs4 import BeautifulSoup
 link_base_string = "https://www.goodreads.com/list/show/6.Best_Books_of_the_20th_Century?page={}"
 def three_genres(book):
     genres = []
     if book.find_all('a', class_="actionLinkLite bookPageGenreLink") is not None:
-        for name in book.find_all('a', class_="actionLinkLite bookPageGenreLink"): genres = genres.append(name.get_text())[:3]
+        for name in book.find_all('a', class_="actionLinkLite bookPageGenreLink"): 
+            genres.append(name.get_text())
+            genres = genres[:3]
         return genres
     else: return np.nan
 def get_awards(book):
@@ -26,6 +29,8 @@ def read_books_links(page_soup):
     return Links_books
 def grequest_page(strings, index):
     return grequests.imap((grequests.get(string) for string in strings), grequests.Pool(index))
+@click.command()
+@click.option('--index', default=1, help='Set how many pages would you like to scrape')
 def get_info_book(index):
     links = []
     links_res = []
@@ -46,9 +51,9 @@ def get_info_book(index):
                     "Genres":three_genres(data),
                     "Awards":get_awards(data),
                     "Link":link}    
-            print(Book_dict)
             df = df.append(Book_dict, ignore_index=True)
+            print(df)
             break
     df.to_csv('./resources/Books.csv')
 if __name__ == "__main__":    
-    get_info_book(11)
+    get_info_book()
