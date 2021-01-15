@@ -6,11 +6,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # loading imgs
-snape = Image.open("./webapp/snape.png")
-library = Image.open('./webapp/library.jpg')
+snape = Image.open("snape.png")
+library = Image.open('library.jpg')
 
 # loading dataframe
-df = pd.read_csv('./webapp/Books.csv')
+df = pd.read_csv('Books.csv')
 df = df.drop(columns=['Unnamed: 0'])
 df.rename(columns={'1st Pub':'pub_year', 'N pag': 'N_pag'}, inplace=True)
 df['Awards'].fillna('0', inplace=True)
@@ -19,12 +19,23 @@ df['Awards'] = df['Awards'].astype('int')
 # setting sidebar
 st.sidebar.header('Team Snape')
 st.sidebar.image(snape, width=100)
-st.sidebar.markdown("""Team Snape is composed by:\n
-                    Kimberley\n
-                    Bence\n
-                    Lorenzo\n
-                    Luca\n
-                    Zakariya""")
+st.sidebar.markdown("Team Snape is composed by:")
+st.sidebar.markdown("""> [![KimGit](https://img.shields.io/badge/Kimberley-Git-blue&?style=plastic&logo=github&?labelColor=grey&?logoWidth=200&?)](https://github.com/T-A-Y-L-O-R-S-T-R-I-V-E)
+>
+> [![BenceGit](https://img.shields.io/badge/Bence-Git-blue&?style=plastic&logo=github&?labelColor=grey&?logoWidth=200&?)](https://github.com/kovacsbelsen)
+>
+> [![LucaGit](https://img.shields.io/badge/Luca-Git-blue&?style=plastic&logo=github&?labelColor=grey&?logoWidth=200&?)](https://github.com/lpianta)
+>
+> [![ZakariyaGit](https://img.shields.io/badge/Zakariya-Git-blue&?style=plastic&logo=github&?labelColor=grey&?logoWidth=200&?)](https://github.com/ZakariyaM27)
+>
+> [![LorenzoGit](https://img.shields.io/badge/Lorenzo-Git-blue&?style=plastic&logo=github&?labelColor=grey&?logoWidth=100&?)](https://github.com/lorenzodemiri)
+""")
+#st.sidebar.markdown("""Team Snape is composed by:\n
+#                    Kimberley\n
+#                    Bence\n
+#                    Lorenzo\n
+#                    Luca\n
+#                    Zakariya""")
 st.sidebar.markdown("The repository for the project can be found [here](https://github.com/lorenzodemiri/Project_Snape)!")
 
 # setting header
@@ -79,12 +90,12 @@ with st.beta_expander("Or by minimum and maximum number of awards received"):
         min_award = st.number_input("Minimum Awards (from 0 to 28)", min_value=0)
         max_award = st.number_input("Maximum Awards (from 0 to 28)", min_value=0, max_value=28, value=28)
 st.dataframe(df.query("@min_rating<=minmax_norm_ratings<=@max_rating & @min_year<=pub_year<=@max_year & @min_pag<=N_pag<=@max_pag & @min_award<=Awards<=@max_award"))
-st.write('We can search by author')
-author_input = st.text_input('Author Name', 'Author Name')
-st.dataframe(df[df['Author'].str.contains(author_input)])
-st.write('Or by title')
-title_input = st.text_input('Title', 'Title')
-st.dataframe(df[df['Title'].str.contains(title_input)])
+with st.beta_expander('Search by author'):
+        author_input = st.text_input('Author Name', 'Author Name')
+        st.dataframe(df[df['Author'].str.contains(author_input)])
+with st.beta_expander('Or by title'):
+        title_input = st.text_input('Title', 'Title')
+        st.dataframe(df[df['Title'].str.contains(title_input)])
 
 # visualization
 st.header('Visualizing the data :bar_chart:')
