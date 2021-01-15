@@ -25,7 +25,7 @@ numpy_image = Image.open('./webapp/numpy_image.jpg')
 seaborn_image = Image.open('./webapp/seaborn_image.jpg')
 
 # loading dataframe
-df = pd.read_csv('./webapp/Books.csv')
+df = pd.read_csv('./webapp/     Books.csv')
 df = df.drop(columns=['Unnamed: 0'])
 df.rename(columns={'1st Pub':'pub_year', 'N pag': 'N_pag'}, inplace=True)
 df['Awards'].fillna('0', inplace=True)
@@ -246,7 +246,6 @@ with st.beta_expander("How did we get our data ? (The Scraper)"):
                 """)
                 st.write("""After getting all the data we stored them into a dictionary and added into a dataframe.
                 With a for loop of 1000 cycles and a lot of patience we exported the dataFrame into a csv file.
-
                 For some more info about the code have a look to the 2 versions on our repo:
                 - [Good_Reads_Scraper 1.1](https://github.com/lorenzodemiri/Project_Snape/blob/kimberley/goodreads_short_scraper.py)
                 - [Good_Reads_Scraper 1.0](https://github.com/lorenzodemiri/Project_Snape/blob/kimberley/goodreads_scraper.py)""")
