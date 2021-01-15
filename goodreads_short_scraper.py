@@ -35,9 +35,9 @@ def get_info_book(index):
     links = []
     links_res = []
     df = pd.DataFrame()
-    for index in range(1,index): links.append(link_base_string.format(index))
-    for r in grequest_page(links, index): links_res += read_books_links(request_soup(r))
-    for r, link in zip(grequest_page(links_res, index), links_res):
+    for index in range(1,index + 1): links.append(link_base_string.format(index + 1))
+    for r in grequest_page(links, index + 1): links_res += read_books_links(request_soup(r))
+    for r, link in zip(grequest_page(links_res, index + 1), links_res):
         for data in request_soup(r).find_all('div', class_ = 'mainContentFloat'):
             Book_dict = {
                     "Title":(data.find('h1').text.strip() if data.find('h1') is not None else np.nan),
