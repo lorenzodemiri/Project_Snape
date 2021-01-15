@@ -87,6 +87,24 @@ def get_plotbar_norm_rating_award(df):
     plt.ylabel('Number of awards')
     plt.title('Ratings and number of awards')
     plt.show()
+def get_plothist_bestrated(df):
+    df_sort_ratings = df.sort_values(by='minmax_norm_ratings', ascending=False)
+    df_rating_sliced = df_sort_ratings[:10]
+    plt.figure(figsize=(10, 10))
+    plt.barh(df_rating_sliced['Title'], df_rating_sliced['minmax_norm_ratings'])
+    plt.ylabel('Book Title')
+    plt.xlabel('Rating from 1 to 10')
+    plt.title('Best 10 Rated Books')
+    plt.show()
+def get_plthist_bestawarded(df):
+    df_sort_award = df.sort_values(by='Awards', ascending=False)
+    df_award_sliced = df_sort_award[:10]
+    plt.figure(figsize=(10,10))
+    plt.barh(df_award_sliced['Title'], df_award_sliced['Awards'])
+    plt.ylabel('Book Title')
+    plt.xlabel('Number of awards')
+    plt.title('Best 10 Books by number of Awards')
+    plt.show()
 ##KINBERLEY VISUALIZATION
 def get_plot_minmax_norm_distr(df):
     df = df.sample(n = 100)
@@ -306,6 +324,45 @@ def get_hist_awards_genres(df):
     ax.set_title('Total Number of Awards by Top Genres', pad=25, color='DarkBlue', weight='bold', fontdict={'fontsize': 12, 'fontweight': 'bold'})
     fig.tight_layout()
     plt.show()
+def get_hist_mean_awards_genres(df):
+    genres = df["Genres"].tolist()
+    genres = [eval(x) for x in genres]
+    genres_list = [re.sub("[\[\]',\"\n\s]", "", item) for sublist in genres for item in sublist]
+    title_repeated = df.Title.repeat(3).tolist()
+    big_df = pd.DataFrame({'Title': title_repeated ,'Genres': genres_list, 'Year': year_repeated, 'Awards': awards_repeated, 'Rating': ratings_repeated})
+    big_df['Awards'] = big_df['Awards'].fillna(0)
+    genre_means = big_df.groupby("Genres").mean()
+    genre_means["Total"] = big_df.groupby("Genres").size()
+    genre_means = genre_means.reset_index().sort_values("Total", axis=0, ascending=False)
+    genre_means["Year"] = genre_means['Year'].fillna(method='pad').astype(int)
+    best_genres = genre_means.loc[genre_means["Total"]>70]
+    fig, ax = plt.subplots()
+    bars = ax.bar(x=best_genres["Genres"], height=best_genres["Awards"])
+    plt.xticks(rotation='vertical')
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_color('Grey')
+    ax.spines['bottom'].set_color('Grey')
+    ax.tick_params(bottom=False, left=False)
+    ax.set_axisbelow(True)
+    ax.yaxis.grid(True, color='#EEEEEE')
+    ax.xaxis.grid(False)
+    bar_color = bars[0].get_facecolor()
+    for bar in bars:
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            bar.get_height() + 0.3,
+            round(bar.get_height(), 1),
+            horizontalalignment='center',
+            color=bar_color,
+            weight='bold'
+        )
+    ax.set_xlabel('Genre', labelpad=10, color=bar_color)
+    ax.set_ylabel('Mean Awards', labelpad=10, color=bar_color)
+    ax.set_title('Mean Number of Awards by Top Genres', pad=25, color='DarkBlue', fontdict={'fontsize': 12, 'fontweight': 'bold'})
+    fig.tight_layout()
+    fig.tight_layout()
+    plt.show()
 #BENCE VISUALIZATION
 def get_plotscatter_meannormbook_realeseyear(df, enable_line = True):
     range_of_ratings = df['Rating Value'].max() - df['Rating Value'].min()
@@ -368,7 +425,41 @@ def get_plotline_table_awards_books(df):
     plt.ylabel('Amount of books')
     plt.plot(data_aw)
     plt.show()
-
+def get_plotscatter_genres_occurence(df):
+    genre = df["Genres"]
+    genretypes = genre.values.tolist()
+    genretypes = [eval(x) for x in genretypes]
+    for x in genretypes:
+        if len(x)!=3:
+            x.append('Fantasy')
+    flat_list = [re.sub("[\[\]',\"\n\s]", "", item) for sublist in genretypes for item in sublist]
+    genreocc = dict()
+    for key in flat_list:
+        if key in genreocc:
+            genreocc[key] +=1
+        else:
+            genreocc[key] =1
+    T_genre = list(zip(* [iter(flat_list)]*3))
+    T_genre = [tuple(x) for x in T_genre]
+    df['Genres'] = T_genre
+    dgenres = df.groupby("Genres").agg({"Genres": np.size})
+    genreamount = pd.DataFrame(T_genre)
+    genretypeamount = pd.DataFrame(flat_list)
+    genretypeamount.columns = ["GenreType"]
+    dg = genretypeamount.groupby("GenreType").agg({"GenreType": [lambda x: np.size(x)]})
+    dg.columns = ["Amount of books in genre"]
+    dg['Genres'] = dg.index
+    gt = dg["Amount of books in genre"].tolist()
+    gg = dg["Genres"].tolist()
+    plt.figure(figsize = (15,20))
+    plt.scatter(gt, gg, label = "Amount")
+    plt.xlabel('Amount')
+    plt.ylabel('Genre types')
+    plt.legend(loc='lower right')
+    plt.title('Genre types occurence')
+    plt.grid(True, linewidth= 1, linestyle="--")
+    plt.show()
+    
 if __name__ == "__main__":
     get_hist_awards_genres(df)
     get_comparation_awarded_series_book(df)
