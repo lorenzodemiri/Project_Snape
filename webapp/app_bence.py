@@ -185,3 +185,82 @@ with st.beta_expander('How does the search function work?'):
         st.code("""author_input = st.text_input('Author Name', 'Author Name')
 st.dataframe(df[df['Author'].str.contains(author_input)])""")
         st.write('We store the result of the input in a variable. To make the function works even with incomplete inputs, we used the str.contains method of Pandas')
+
+
+
+with st.beta_expander("How did we get our data ? (The Scraper)"):
+                st.write("""The technique that we have used to extract our data is Web Scraping. The website that we target to get our data is
+                [GoodReads](https://www.goodreads.com/list/show/6.Best_Books_of_the_20th_Century) which is a website that contains a database of all the known books.
+                We have focused ourself on the best books of 20th Century.""")
+
+                st.write("""To do that we've write a software in python using the large quantity of library that it has. 
+                [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) is the python package that we have used to that, BS permits us to 
+                parse HTML and XML documents""")
+                st.code("""from bs4 import BeautifulSoup""")
+                st.write("""To use Beautiful Soup we have to define the method, and pass to it the section of the HTML code to get and parse it, but before doing this we
+                have to initialize BS by passing it a request object that contain a link. The main issue that the we had during this process is that we had to scrape our data from a lot of web pages
+                ,but the requests package was really slow doing that, so after a lot of research we have find out that the best solution to speed up the loadings was to paralelize the websites requests.
+                To do that we have found the [Grequests Package](https://github.com/spyoungtech/grequests), an Asynchronous Requests library, and we have implemented it on our scraper.""")
+                st.code("""
+                import grequests
+                def grequest_page(strings, index):
+                reqs = (grequests.get(string) for string in strings)
+                resp = grequests.imap(reqs, grequests.Pool(index))
+                return resp
+                """)
+                st.write("""Once solved the loading time issue, we had to get the data for a thousands books, so by parsing the base url wich is the link to the pages where the books are 
+                listed, with our scraper we targeted the url of each book and we store it in a list and in a file.txt locally as well as redundacy.""")
+                st.code("""
+                #BASE URL, WHERE ALL THE BOOKS WHERE LISTED, 100 BOOKS ON EACH PAGE
+                link_base_string = "https://www.goodreads.com/list/show/6.Best_Books_of_the_20th_Century?page={}" 
+                #BY CALLING THIS METHOD YOU GET THE LINK OF THE BOOOK
+                info_book = bs.find('a', class_ = 'bookTitle')
+                book_link = "https://www.goodreads.com{}".format(info_book['href'])
+                """)
+                st.write("Piece of the html code of the page scraped, where to get url by parsing the href item.")
+                st.code("""<a class="bookTitle" itemprop="url" href="/book/show/2657.To_Kill_a_Mockingbird">
+                <span itemprop="name" role="heading" aria-level="4">To Kill a Mockingbird</span>
+                </a>""")
+                st.write("""Once we had the links we written a function to scrape the data of the books, by parsing each book individualy.
+                The data that we wanted were: 
+                - Title (string)
+                - Author (string)
+                - Rating Counter (int)
+                - Review Counter (int)
+                - Rating Value (float)
+                - Number of the Pages (int)
+                - The first pubblication Year (string)
+                - If it's part of a series or not (boolean value)
+                - The first 3 Genres (list)
+                - How many awards (int)
+                - Locations where the plot was based
+                Below we've left some code snippets of the most difficult items to scrape and filter.""")
+                st.code("""
+                #FUNCTION TO GET 3 GENRES
+                def three_genres(book):
+                        genres = []
+                        names = book.find_all('a', class_="actionLinkLite bookPageGenreLink")
+                        if names is not None:
+                                for name in names:
+                                        genres.append(name.get_text())
+                                        genres = genres[:3]  
+                                return genres
+                        else:
+                                return np.nan
+                #FUNCTION TO GET THE AWARDS
+                def get_awards(book):
+                        awards_list = []    
+                        names = book.find_all('a', class_="award")
+                        if names is not None:
+                                for name in names:
+                                        awards_list.append(name.get_text())
+                                return awards_list
+                        else: 
+                                return np.nan
+                """)
+                st.write("""After getting all the data we stored them into a dictionary and added into a dataframe.
+                With a for loop of 1000 cycles and a lot of patience we exported the dataFrame into a csv file.
+
+                For some more info about the code have a look to the 2 versions on our repo:
+                - [Good_Reads_Scraper 1.1](https://github.com/lorenzodemiri/Project_Snape/blob/kimberley/goodreads_short_scraper.py)
+                - [Good_Reads_Scraper 1.0](https://github.com/lorenzodemiri/Project_Snape/blob/kimberley/goodreads_scraper.py)""")
