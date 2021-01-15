@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # loading imgs
-snape = Image.open("./webapp/snape.png")
+snape = Image.open("snape.png")
 library = Image.open('library.jpg')
 best_award_book = Image.open('best_award_books.jpg')
 best_rated_book = Image.open('best_rated_books.jpg')
