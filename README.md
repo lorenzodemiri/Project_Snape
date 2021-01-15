@@ -1,50 +1,50 @@
-# Project_Snape! 🚀
-<a href="https://timelinecovers.pro/covers/movies-and-tv/harry-potter-alan-rickman-severus-snape_facebook-cover-photo">
-  <img align="right" alt="Snape" width="500px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.DAs3Z5CIy8a46qNqLXzyLAHaCv%26pid%3DApi&f=1" />
-    
-<a href="https://discord.gg/XTW52Kt">
-  <img align="left" alt="Discord" width="22px" src="https://raw.githubusercontent.com/peterthehan/peterthehan/master/assets/discord.svg" />
-</a>
+# Project_Snape! 🚀 
+
+![Badge2](https://img.shields.io/badge/Pull%20Requests-472-green&style=plastic&logo=appveyor&?labelColor=grey)
+![Badge3](https://img.shields.io/badge/Followers-10%2C000%2C000-green&style=plastic&logo=appveyor&?labelColor=grey)
+![Badge4](https://img.shields.io/badge/GithubCommits-50%2C000-black&style=plastic&logo=appveyor&?labelColor=grey)
+![Badge5](https://img.shields.io/badge/Snape-Wins-critical?color=black&style=plastic&logo=appveyor&?labelColor=grey)
   
 ***
 
 **Webscraping and analyzing data from [GoodReads](www.goodreads.com)
     of the Best Books of the 20th Century.**
-<a href="https://www.goodreads.com/">
-  <img align="right" alt="GoodReads" width="22px" src="https://s.gr-assets.com/assets/award/2020/landing-page/masthead-text-35d08fd320132f25beace5d368cfd83d.svg" />
-</a>    
-    
+
+>
+> <img align="center" alt="Snape" width="700" height="250" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6f304c4e-1245-4fe2-abe2-9f5963d2980e/dbv5rv2-762301dc-66b7-47c9-9d65-d2e638f298b2.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTpmaWxlLmRvd25sb2FkIl0sIm9iaiI6W1t7InBhdGgiOiIvZi82ZjMwNGM0ZS0xMjQ1LTRmZTItYWJlMi05ZjU5NjNkMjk4MGUvZGJ2NXJ2Mi03NjIzMDFkYy02NmI3LTQ3YzktOWQ2NS1kMmU2MzhmMjk4YjIucG5nIn1dXX0.4c__IG_kvtXqQ_cq_G09SRe5ri7SMmJ6zegUFVfgyfc" />
+>  
+
+
 ***
 
+>
 > **Important info:**
 >
-> Be sure to read the GUIDE HOW TO COLLAB.txt file before pushing anything!
+> :pencil: Be sure to read the GUIDE HOW TO COLLAB.txt file before pushing anything!
 
 ***
 
 ## Table of contents
-* 👨 [Team](#Team)
-* <img height="15" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/python/python.png"> [Technologies](#Technologies)
-* <img height="15" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png"> [Syncing](#Syncing)  
-* :package:
-    [Guide to Collaborate](#Guide To Collaborate)
-* :hammer_and_pick:
-    [Project Status](#Project Status)
-* <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="20px"> [Special Thanks](#Special Thanks)
+* :two_men_holding_hands: [Team](#Team)
+* :floppy_disk: [Technologies](#Technologies)
+* :checkered_flag: [Syncing](#Syncing)  
+* :hammer: [Guide to Collaborate](#Guide_To_Collaborate)
+* :alarm_clock: [Project Status](#Project_Status)
+* <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="20px" /> [Special Thanks](#Special_Thanks)
 
 ***
 
-## Team:
+## Team :two_men_holding_hands:
     
-> [Kimberley](https://github.com/T-A-Y-L-O-R-S-T-R-I-V-E/)
+> ![KimGit](https://img.shields.io/badge/Kimberley-Git-blue&?style=plastic&logo=github&?labelColor=grey&?logoWidth=200&?link=https://github.com/T-A-Y-L-O-R-S-T-R-I-V-E/left&link=https://github.com/T-A-Y-L-O-R-S-T-R-I-V-E/right)
 >
-> [Bence](https://github.com/kovacsbelsen)
+> ![BenceGit](https://img.shields.io/badge/Bence-Git-blue&?style=plastic&logo=github&?labelColor=grey&?logoWidth=200&?link=https://github.com/kovacsbelsen/left&link=https://github.com/kovacsbelsen/right)
 >
-> [Luca](https://github.com/lpianta)
+> ![LucaGit](https://img.shields.io/badge/Luca-Git-blue&?style=plastic&logo=github&?labelColor=grey&?logoWidth=200&?link=https://github.com/lpianta/left&link=https://github.com/lpianta/right)
 >
-> [Zakariya](https://github.com/ZakariyaM27/)
+> ![ZakariyaGit](https://img.shields.io/badge/Zakariya-Git-blue&?style=plastic&logo=github&?labelColor=grey&?logoWidth=200&?link=https://github.com/ZakariyaM27/left&link=https://github.com/ZakariyaM27/right)
 >
-> [Lorenzo](https://github.com/lorenzodemiri)
+> ![LorenzoGit](https://img.shields.io/badge/Lorenzo-Git-blue&?style=plastic&logo=github&?labelColor=grey&?logoWidth=100&?link=https://github.com/lorenzodemiri/left&link=https://github.com/lorenzodemiri/right)
 
 ***
     
@@ -59,17 +59,22 @@ Texting Dad      17 mins            █░░░░░░░░░░░░░�
 ```
 <!--END_SECTION:waka-->
 
-## Technologies
+## Technologies :floppy_disk:
 Project is created with:
-* [Python version: 3.9.1](https://www.python.org/downloads/) <code><img height="40" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/python/python.png"></code>
+* [Python version: 3.9.1](https://www.python.org/downloads/)  <img height="30" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/python/python.png" />
+* [Pandas version: 1.1.5](https://pandas.pydata.org/)  <img height="30" src="https://pandas.pydata.org/static/img/pandas_white.svg" />
+* [Streamlit version: 0.74.1](https://www.streamlit.io/)  <img height="20" src="https://assets.website-files.com/5dc3b47ddc6c0c2a1af74ad0/5e0a328bedb754beb8a973f9_logomark_website.png" />
+* [Matplotlib version: 3.3.0](https://matplotlib.org/)  <img height="20" src="https://matplotlib.org/_static/logo2_compressed.svg" /> 
+* [Numpy version: 1.18.4](https://numpy.org/)  <img height="30" src="https://numpy.org/images/logos/numpy.svg" />
+* [Seaborn version: 0.10.1](https://seaborn.pydata.org/)  <img height="30" src="https://seaborn.pydata.org/_static/logo-wide-lightbg.svg" />
 
 ***
 
-## Syncing
+## Syncing :checkered_flag:
 
 1) Before starting the work of the day you have to sync with the last version of the MAIN BRANCH
 
-2) git pull origin main
+2) git pull origin main   
 
 3) git checkout "*YOURBRANCHNAME*"
 
@@ -85,7 +90,7 @@ Project is created with:
 
 ***
 
-## [Guide To Collaborate]
+## Guide To Collaborate :hammer:
 
 1) git clone https://github.com/lorenzodemiri/Project_Snape.git
 
@@ -121,13 +126,12 @@ Project is created with:
 
 ***
 
-## Project Status
-Ongoing... Day 3 of 5 complete!
+## Project Status :alarm_clock:
+Ongoing... Day 4 of 5 complete!
 
 ***
-
-### Special Thanks
-This project would not be possible without **Jan** or **Antonio.** Thankyou!
-<p align="center">
-<img align="center" height="50" alt="Strive" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.alleywatch.com%2Fwp-content%2Fuploads%2F2020%2F11%2FStrive-School.jpg&f=1&nofb=1" />
-</p>
+    
+### Special Thanks <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="40px" />
+This project **WOULD NOT** be possible without [**Jan**](https://github.com/jcllobet) or [**Antonio**.](https://github.com/AntonioMarsella) Thankyou!
+<img align="left" height="50" alt="Strive" src="https://strive.school/assets/strive_logo02.png" />
+<img align="center" height="500" width=700 src="https://media.giphy.com/media/5BrdG6bhBZkaY/giphy.gif" />
